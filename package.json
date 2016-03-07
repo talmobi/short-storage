@@ -11,6 +11,7 @@
   },
   "author": "talmobi",
   "email": "talmo.christian@gmail.com",
+  "git": "https://github.com/talmobi/short-storage",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.4.5"
