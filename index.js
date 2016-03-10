@@ -1,7 +1,7 @@
-module.exports = {
+var ShortStorage = {
   Storage: function simpleCache (opts) {
     var params = {
-      // default ttl for keys
+      // default ttl (time to live) for keys
       ttl: 0, // infinite
 
       // time interval to check for and delete expired keys
@@ -33,26 +33,31 @@ module.exports = {
     };
     timeout();
 
-    return {
-      get: function (key) {
-        var now = Date.now();
-        var data = db[key];
-        if (data && (data.__expires_at > now || !data.__expires_at)) {
-          return data.value;
-        }
-        return null;
-      },
+    var get = function (key) {
+      var now = Date.now();
+      var data = db[key];
+      if (data && (data.__expires_at > now || !data.__expires_at)) {
+        return data.value;
+      }
+      return null;
+    };
 
-      put: function (key, value, ttl) {
-        var now = Date.now();
-        var ttl = ttl || params.ttl;
-        var data = {
-          value: value,
-          __created_at: now,
-          __expires_at: now + ttl
-        }
-        db[key] = data;
-      },
+    var set = function (key, value, ttl) {
+      var now = Date.now();
+      var ttl = ttl || params.ttl;
+      var data = {
+        value: value,
+        __created_at: now,
+        __expires_at: now + ttl
+      }
+      db[key] = data;
+    };
+
+    return {
+      get: get,
+
+      put: set,
+      set: set,
 
       del: function (key) {
         db[key] = "";
@@ -65,3 +70,5 @@ module.exports = {
     }
   }
 }
+
+if (typeof module !== 'undefined') module.exports = ShortStorage;

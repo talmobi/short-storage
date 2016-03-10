@@ -34,14 +34,14 @@ describe('short-storage', function () {
     })
   })
 
-  describe('keys length 0', function () {
+  describe('keys length should be 0', function () {
     it('garbage collection interval should have deleted the key and should be length 0', function (done) {
       var json = db.getJsonObject();
       assert.equal( Object.keys( db.getJsonObject() ).length, 1 );
       setTimeout(function () {
         assert.equal( Object.keys( db.getJsonObject() ).length, 0 );
         done();
-      }, opts.interval * 1.5);
+      }, opts.interval * 2);
     })
   })
 
