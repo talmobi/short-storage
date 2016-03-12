@@ -1,6 +1,6 @@
-# short-storage
+# short-storage - Simple in-memory caching
 
-## simple in-memory temporary storage for caching
+## Simple to use
 
 ```javascript
 var cache = require('short-storage').createStorage();
@@ -15,6 +15,22 @@ setTimeout(function () {
 }, ttl); // wait until ttl has passed
 ```
 
+## About
+Simple in-memory temporary storage for caching data.
+
+## Installation
+from npm
+```
+npm install short-storage
+```
+
+from source
+```
+git clone https://github.com/talmobi/short-storage
+cd short-storage
+npm install
+```
+
 ## API
 ```javascript
 module.exports = {
@@ -24,9 +40,17 @@ module.exports = {
       interval: 60 * 1000 || opts.interval // garbage collection interval
     }
     
+    var db = {}; // in-memory json object as storage
+    
     return {
+      // set key value with optional ttl
       set: function (key, value, ttl = defaults.ttl),
-      get: function (key) { return expired ? null : value }
+      
+      // get value of key or null if expired
+      get: function (key) { return expired ? null : value },
+      
+      // returns the in-memory backing object
+      getJsonObject: function () { return db; }
     }
   }
 }
@@ -37,5 +61,5 @@ module.exports = {
 mocha test/*
 ```
 
-## Licence
+## LICENSE
 MIT
