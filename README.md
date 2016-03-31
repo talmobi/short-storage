@@ -16,14 +16,13 @@ setTimeout(function () {
 ```
 
 ## About
-Simple in-memory temporary storage for caching data.
+Simple (in-memory) storage types to store keys or values with a time to live (that expire and become null).
 
 ## Installation
 from npm
 ```
 npm install short-storage
 ```
-
 from source
 ```
 git clone https://github.com/talmobi/short-storage
@@ -84,7 +83,7 @@ createTubeStorage({ ttl = 0, max_length = 100 }) => {
 
 ## Test
 ```javascript
-mocha test/*
+npm test // node_modules/.bin/mocha test/*
 ```
 
 ## LICENSE
