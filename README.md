@@ -32,27 +32,34 @@ npm install
 ```
 
 ## API
+
 ```javascript
-module.exports = {
-  createStorage: function (opts) {
-    var defaults = {
-      ttl: 0 || opts.ttl, // default time to live
-      interval: 60 * 1000 || opts.interval // garbage collection interval
-    }
-    
-    var db = {}; // in-memory json object as storage
-    
-    return {
-      // set key value with optional ttl
-      set: function (key, value, ttl = defaults.ttl),
-      
-      // get value of key or null if expired
-      get: function (key) { return expired ? null : value },
-      
-      // returns the in-memory backing object
-      getJsonObject: function () { return db; }
-    }
-  }
+// @ttl - time to live, 0 by default (infinite)
+// @interval - polling interval for garvage collection, 1 minute by default
+createStorage({ ttl, interval }) => {
+
+  // @key - key for value to get
+  // @returns - value for @key or null if ttl has expired
+  get( key ),
+
+  // @key - key to store value with
+  // @value - value to store in key
+  // @ttl - time to live
+  set( key, value, ttl )
+}
+
+// @ttl - time to live, 0 by default (infinite)
+// @max_length - max length of the backing array structure, 100 by default
+createTubeStorage({ ttl = 0, max_length = 100 }) => {
+
+  // @amount - number of most recent values to return, all if omitted, capped at @max_length
+  // @returns {array) - array of most recent inserted valid (ttl not expired) values
+  pull( amount = max_length ), 
+
+  // push a new value into the tube
+  // @value
+  // @ttl - time ot live
+  push( value, ttl )
 }
 ```
 
