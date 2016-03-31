@@ -70,6 +70,7 @@ createTubeStorage({ ttl = 0, max_length = 100 }) => {
    * pull all values from the tube, ordered by FILO (First In, Last Out)
    * @param {Number} [amount] - number of most recent values to return, all by default
    * @returns {Array) - Array of most recent inserted valid (ttl not expired) values
+   */
   pull( amount ), 
 
   /**
