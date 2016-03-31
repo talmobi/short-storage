@@ -34,31 +34,50 @@ npm install
 ## API
 
 ```javascript
-// @ttl - time to live, 0 by default (infinite)
-// @interval - polling interval for garvage collection, 1 minute by default
+/**
+ * Creates a new storage object
+ * @param {Object} [params]
+ * @param {Number} [params.ttl=0] - default time to live for keys, Infinite (0) by default
+ * @param {Number} [params.interval=60000] - garbage collection interval, 1 minute by default
+ * @returns {Object} The storage object
+ */
 createStorage({ ttl, interval }) => {
 
-  // @key - key for value to get
-  // @returns - value for @key or null if ttl has expired
+  /**
+   * Gets the value for the specified key
+   * @param {string} key - key for the value to get
+   * @returns {value|null} value for the specified key or null if its ttl has expired
+   */
   get( key ),
 
-  // @key - key to store value with
-  // @value - value to store in key
-  // @ttl - time to live
+  /**
+   * @param {string} key - key to store value with
+   * @param {*} value - value to store in key
+   * @param {Number} [ttl=this.params.ttl] - time to live, this.params.ttl by default
+  */
   set( key, value, ttl )
 }
 
-// @ttl - time to live, 0 by default (infinite)
-// @max_length - max length of the backing array structure, 100 by default
+/**
+ * Creates a new tube storage object
+ * @param {Object} [params]
+ * @param {Number} [params.ttl] - default time to live for inserted values, Infinite (0) by default
+ * @param {Number} [max_length=100] - maximum number of values (max length of backing array), 100 by default
+ * @returns {Object} The storage object
+ */
 createTubeStorage({ ttl = 0, max_length = 100 }) => {
 
-  // @amount - number of most recent values to return, all if omitted, capped at @max_length
-  // @returns {array) - array of most recent inserted valid (ttl not expired) values
-  pull( amount = max_length ), 
+  /**
+   * pull all values from the tube, ordered by FILO (First In, Last Out)
+   * @param {Number} [amount] - number of most recent values to return, all by default
+   * @returns {Array) - Array of most recent inserted valid (ttl not expired) values
+  pull( amount ), 
 
-  // push a new value into the tube
-  // @value
-  // @ttl - time ot live
+  /**
+   * push a new value into the tube
+   * @param {*} value - value to insert
+   * @param {Number} [ttl=this.params.ttl] - time to live, this.params.ttl by default
+   */
   push( value, ttl )
 }
 ```
