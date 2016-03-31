@@ -45,6 +45,18 @@ describe('short-storage', function () {
     })
   })
 
+  describe('test infinite key ttl', function () {
+
+    it('should create an infinite value', function (done) {
+      var db = ss.createStorage();
+      db.set(test_key, test_value);
+      setTimeout(function () {
+        assert.equal( test_value, db.get(test_key));
+        done();
+      }, 1000)
+    })
+  })
+
 });
 
 
