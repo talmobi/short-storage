@@ -1,6 +1,6 @@
 {
   "name": "short-storage",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "simple in-memory nodejs storage cache for temporary values",
   "main": "index.js",
   "directories": {
