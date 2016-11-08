@@ -11,7 +11,7 @@ function createStorage (opts) {
   params.interval = opts.interval || params.interval;
 
   // in memory json object for storage
-  var db = {};
+  var db = opts.db || {};
 
   var timeout = function () {
     var count = 0;
@@ -78,7 +78,7 @@ function createTubeStorage (opts) {
   params.max_length = opts.max_length || params.max_length;
 
   // in memory array for storage
-  var db = [];
+  var db = opts.db || [];
 
   var shouldRefresh = true;
   var last = {

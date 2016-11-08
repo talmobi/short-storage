@@ -7,11 +7,39 @@ var opts = {
 };
 var db = ss.Storage(opts);
 
+var opts2 = {
+  ttl: 1000, // in ms
+  interval: 100, // in ms
+  db: {
+    'Fluffy Giraffes...': {
+      value: '...dancing in the moonlight~',
+      __created_at: Date.now(),
+      __expires_at: Date.now() + 1000
+    }
+  }
+};
+var db2 = ss.Storage(opts2);
+
 var test_key = 'key';
 var test_value = 'value';
 
 describe('short-storage', function () {
   this.timeout(opts.ttl * 1.5);
+
+  describe('opts.db2', function () {
+    it('should not throw an error', function () {
+      assert.equal( db2.get('Fluffy Giraffes...'), '...dancing in the moonlight~');
+    })
+  })
+
+  describe('opts.db2', function () {
+    it('should not throw an error', function (done) {
+      setTimeout(function () {
+        assert.equal( db2.get('Fluffy Giraffes...'), null);
+        done()
+      }, 1000)
+    })
+  })
 
   describe('#put()', function () {
     it('should not throw an error', function () {
