@@ -82,6 +82,11 @@ createTubeStorage({ ttl = 0, max_length = 100 }) => {
 }
 ```
 
+## Alternatives
+[memoizee](https://github.com/medikoo/memoizee)
+
+[lru-cache](https://github.com/isaacs/node-lru-cache)
+
 ## Test
 ```javascript
 npm test // node_modules/.bin/mocha test/*
